@@ -2,7 +2,12 @@
     export let id: string;
 
     import { initializeApp } from "firebase/app";
-    import { getFirestore, doc, getDoc } from "firebase/firestore";
+    import {
+        getFirestore,
+        doc,
+        getDoc,
+        connectFirestoreEmulator,
+    } from "firebase/firestore";
     import Nav from "../lib/Nav.svelte";
     import NavItem from "../lib/NavItem.svelte";
     import Editor from "../lib/Editor.svelte";
@@ -20,6 +25,15 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    // Connect emulators in dev
+    if (
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
+    ) {
+        console.log("Local dev env, using emulators");
+        connectFirestoreEmulator(db, "localhost", 8080);
+    }
 
     async function load() {
         const pasteRef = await getDoc(doc(db, "pastes", id));

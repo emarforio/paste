@@ -1,6 +1,11 @@
 <script>
     import { initializeApp } from "firebase/app";
-    import { getFirestore, collection, addDoc } from "firebase/firestore";
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        connectFirestoreEmulator,
+    } from "firebase/firestore";
     import Nav from "../lib/Nav.svelte";
     import NavItem from "../lib/NavItem.svelte";
     import Editor from "../lib/Editor.svelte";
@@ -18,6 +23,15 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    // Connect emulators in dev
+    if (
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
+    ) {
+        console.log("Local dev env, using emulators");
+        connectFirestoreEmulator(db, "localhost", 8080);
+    }
 
     let textContent = "";
 
