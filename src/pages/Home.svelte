@@ -56,6 +56,8 @@
             disabled={textContent.length === 0}
             on:click={save}
         />
+
+        <NavItem title="About" href="https://github.com/emarforio/paste" />
     </Nav>
 
     <Editor bind:value={textContent} />

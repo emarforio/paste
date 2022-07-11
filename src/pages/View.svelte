@@ -55,6 +55,8 @@
 <div class="flex flex-col h-full">
     <Nav>
         <NavItem title="Home" href="/" />
+
+        <NavItem title="About" href="https://github.com/emarforio/paste" />
     </Nav>
 
     {#await textContentPromise}
