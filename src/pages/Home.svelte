@@ -1,48 +1,48 @@
 <script>
+    import { initializeApp } from "firebase/app";
+    import { getFirestore, collection, addDoc } from "firebase/firestore";
+    import Nav from "../lib/Nav.svelte";
+    import NavItem from "../lib/NavItem.svelte";
+    import Editor from "../lib/Editor.svelte";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDwSgGiZLjsMu5wExYn3NxH_Iomu6moMNc",
+        authDomain: "paste-c09d8.firebaseapp.com",
+        projectId: "paste-c09d8",
+        storageBucket: "paste-c09d8.appspot.com",
+        messagingSenderId: "343169697356",
+        appId: "1:343169697356:web:935b315292d0aa0f4596e9",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     let textContent = "";
 
-    function getLineNumbers(length) {
-        return Array.from({ length })
-            .map((_, i) => i + 1)
-            .join("\n");
+    async function save() {
+        try {
+            const docRef = await addDoc(collection(db, "pastes"), {
+                content: textContent,
+            });
+            window.location.href = `/${docRef.id}`;
+        } catch {
+            alert(
+                "Something went wrong while saving the paste, please try again!"
+            );
+        }
     }
-
-    function save() {
-        alert("It works");
-    }
-
-    $: lineCount = textContent.split("\n").length;
-    $: lineNumbers = getLineNumbers(lineCount);
-    $: console.log(lineCount);
 </script>
 
 <div class="flex flex-col h-full">
-    <nav class="sticky top-0 px-3 py-1 bg-slate-900 text-slate-500 font-mono">
-        <span class="hover:text-yellow-400"
-            >[<button on:click={save} class="hover:underline">Save</button
-            >]</span
-        >
-    </nav>
-
-    <main class="flex overflow-scroll-y grow">
-        <div
-            id="lines"
-            class="w-min px-3 py-3 bg-slate-800 text-slate-600 text-right font-mono"
-        >
-            {lineNumbers}
-        </div>
-        <textarea
-            class="bg-slate-800 w-full px-1 py-3 text-slate-100 placeholder:text-slate-500 font-mono"
-            placeholder="Start typing.."
-            wrap="off"
-            bind:value={textContent}
+    <Nav>
+        <NavItem
+            title="Save"
+            disabled={textContent.length === 0}
+            on:click={save}
         />
-    </main>
-</div>
+    </Nav>
 
-<style>
-    textarea {
-        resize: none;
-        outline: none;
-    }
-</style>
+    <Editor bind:value={textContent} />
+</div>

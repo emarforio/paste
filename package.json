@@ -23,6 +23,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
+    "firebase": "^9.9.0",
     "page": "^1.11.6"
   }
 }
