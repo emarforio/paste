@@ -1,8 +1,8 @@
-<script>
-  export let value;
+<script lang="ts">
+  export let value: string;
   export let readonly = false;
 
-  function getLineNumbers(length) {
+  function getLineNumbers(length: number) {
     return Array.from({ length })
       .map((_, i) => i + 1)
       .join("\n");
