@@ -15,12 +15,12 @@
 <main class="flex overflow-scroll-y grow">
   <div
     id="lines"
-    class="w-min px-3 py-3 bg-slate-800 text-slate-600 text-right font-mono"
+    class="w-min px-3 py-3 bg-slate-800 text-slate-500 text-right font-mono"
   >
     {lineNumbers}
   </div>
   <textarea
-    class="resize-none outline-none bg-slate-800 w-full px-1 py-3 text-slate-100 placeholder:text-slate-500 font-mono"
+    class="resize-none outline-none bg-slate-800 w-full px-1 py-3 text-slate-100 placeholder:text-slate-300 font-mono"
     placeholder="Start typing.."
     wrap="off"
     bind:value

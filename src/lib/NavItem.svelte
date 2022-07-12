@@ -10,10 +10,11 @@
   >
 {:else if href}
   <span class="text-slate-400 hover:text-yellow-400"
-    >[<a class="hover:underline" {href}>{title}</a>]</span
+    >[<a class="underline underline-offset-1" {href}>{title}</a>]</span
   >
 {:else}
   <span class="text-slate-400 hover:text-yellow-400"
-    >[<button class="hover:underline" on:click>{title}</button>]</span
+    >[<button class="underline underline-offset-1" on:click>{title}</button
+    >]</span
   >
 {/if}
